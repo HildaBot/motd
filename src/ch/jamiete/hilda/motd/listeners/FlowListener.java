@@ -17,19 +17,19 @@ package ch.jamiete.hilda.motd.listeners;
 
 import com.google.gson.JsonElement;
 import ch.jamiete.hilda.configuration.Configuration;
+import ch.jamiete.hilda.events.EventHandler;
 import ch.jamiete.hilda.motd.MotdPlugin;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
-public class FlowListener extends ListenerAdapter {
+public class FlowListener {
     private MotdPlugin plugin;
 
     public FlowListener(MotdPlugin plugin) {
         this.plugin = plugin;
     }
 
-    @Override
+    @EventHandler
     public void onGuildMemberJoin(final GuildMemberJoinEvent event) {
         Configuration cfg = this.plugin.getHilda().getConfigurationManager().getConfiguration(this.plugin, event.getGuild().getId());
 
