@@ -33,6 +33,7 @@ public class MotdBaseCommand extends ChannelSeniorCommand {
         this.setMinimumPermission(Permission.MANAGE_SERVER);
 
         this.registerSubcommand(new MotdChannelCommand(hilda, this, plugin));
+        this.registerSubcommand(new MotdCurrentCommand(hilda, this, plugin));
         this.registerSubcommand(new MotdMessageCommand(hilda, this, plugin));
         this.registerSubcommand(new MotdResetCommand(hilda, this, plugin));
     }
