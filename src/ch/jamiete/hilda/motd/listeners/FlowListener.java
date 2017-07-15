@@ -15,10 +15,10 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.listeners;
 
-import com.google.gson.JsonElement;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.events.EventHandler;
 import ch.jamiete.hilda.motd.MotdPlugin;
+import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 
@@ -33,20 +33,30 @@ public class FlowListener {
     public void onGuildMemberJoin(final GuildMemberJoinEvent event) {
         Configuration cfg = this.plugin.getHilda().getConfigurationManager().getConfiguration(this.plugin, event.getGuild().getId());
 
-        JsonElement motd = cfg.get().get("message");
-        JsonElement chan = cfg.get().get("channel");
+        String motd = cfg.getString("motd", null);
+        String chan = cfg.getString("channel", null);
 
         if (motd == null || chan == null) {
             return;
         }
 
-        TextChannel channel = event.getGuild().getTextChannelById(chan.getAsString());
+        TextChannel channel = event.getGuild().getTextChannelById(chan);
 
         if (channel == null) {
             return;
         }
 
-        channel.sendMessage(motd.getAsString().replace("@user", event.getMember().getAsMention())).queue();
+        channel.sendMessage(FlowListener.compute(motd, event.getMember())).queue();
+    }
+
+    public static String compute(String message, final Member member) {
+        message = message.replaceAll("\\$mention", member.getAsMention());
+        message = message.replaceAll("\\$username", member.getUser().getName());
+        message = message.replaceAll("\\$effective", member.getEffectiveName());
+        message = message.replaceAll("\\$discriminator", member.getUser().getDiscriminator());
+        message = message.replaceAll("\\$id", member.getUser().getId());
+
+        return message;
     }
 
 }
