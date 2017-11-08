@@ -15,14 +15,14 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.commands;
 
-import java.util.Arrays;
-import org.apache.commons.lang3.StringUtils;
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.motd.MotdPlugin;
 import net.dv8tion.jda.core.entities.Message;
+import org.apache.commons.lang3.StringUtils;
+import java.util.Arrays;
 
 public class MotdMessageCommand extends ChannelSubCommand {
     private MotdPlugin plugin;
@@ -33,7 +33,7 @@ public class MotdMessageCommand extends ChannelSubCommand {
         this.plugin = plugin;
 
         this.setName("message");
-        this.setAliases(Arrays.asList(new String[] { "msg" }));
+        this.setAliases(Arrays.asList("msg"));
         this.setDescription("Sets the message to send when someone joins.");
     }
 
@@ -50,10 +50,15 @@ public class MotdMessageCommand extends ChannelSubCommand {
 
             msg = StringUtils.removeAll(msg, "\\!\\w+ \\w+ ");
 
+            if (msg.length() > 2000) {
+                this.reply(message, "Oops, your message is too long. It must be less than 2000 characters when expanded. Please make it shorter and try again.");
+                return;
+            }
+
             cfg.get().addProperty("motd", msg);
             cfg.save();
 
-            this.reply(message, "Okay, I'll now send this when someone joins:");
+            this.reply(message, "OK, I'll now send this when someone joins:\n\n");
             this.reply(message, msg);
 
             if (cfg.get().get("channel") == null) {

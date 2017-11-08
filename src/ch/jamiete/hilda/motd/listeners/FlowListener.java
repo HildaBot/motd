@@ -15,9 +15,12 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.listeners;
 
+import ch.jamiete.hilda.Util;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.events.EventHandler;
 import ch.jamiete.hilda.motd.MotdPlugin;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.MessageBuilder.SplitPolicy;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
@@ -46,13 +49,13 @@ public class FlowListener {
             return;
         }
 
-        channel.sendMessage(FlowListener.compute(motd, event.getMember())).queue();
+        new MessageBuilder().append(FlowListener.compute(motd, event.getMember())).buildAll(SplitPolicy.SPACE).forEach(m -> channel.sendMessage(m).queue());
     }
 
     public static String compute(String message, final Member member) {
         message = message.replaceAll("\\$mention", member.getAsMention());
-        message = message.replaceAll("\\$username", member.getUser().getName());
-        message = message.replaceAll("\\$effective", member.getEffectiveName());
+        message = message.replaceAll("\\$username", Util.sanitise(member.getUser().getName()));
+        message = message.replaceAll("\\$effective", Util.sanitise(member.getEffectiveName()));
         message = message.replaceAll("\\$discriminator", member.getUser().getDiscriminator());
         message = message.replaceAll("\\$id", member.getUser().getId());
 
