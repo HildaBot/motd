@@ -56,7 +56,7 @@ public class MotdChannelCommand extends ChannelSubCommand {
 
             this.reply(message, "Okay, I'll now send messages to " + chan.getAsMention());
 
-            if (cfg.get().get("message") == null) {
+            if (cfg.get().get("motd") == null) {
                 this.reply(message, "You haven't yet set the message for me to send.");
             }
         }
