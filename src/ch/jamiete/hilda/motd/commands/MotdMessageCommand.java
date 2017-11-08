@@ -42,7 +42,7 @@ public class MotdMessageCommand extends ChannelSubCommand {
         Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
 
         if (arguments.length == 0) {
-            cfg.get().remove("message");
+            cfg.get().remove("motd");
             cfg.save();
             this.reply(message, "Removed the MOTD message!");
         } else {
@@ -50,7 +50,7 @@ public class MotdMessageCommand extends ChannelSubCommand {
 
             msg = StringUtils.removeAll(msg, "\\!\\w+ \\w+ ");
 
-            cfg.get().addProperty("message", msg);
+            cfg.get().addProperty("motd", msg);
             cfg.save();
 
             this.reply(message, "Okay, I'll now send this when someone joins:");
