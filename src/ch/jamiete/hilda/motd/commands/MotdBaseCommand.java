@@ -21,9 +21,9 @@ import ch.jamiete.hilda.motd.MotdPlugin;
 import net.dv8tion.jda.core.Permission;
 
 public class MotdBaseCommand extends ChannelSeniorCommand {
-    private MotdPlugin plugin;
+    private final MotdPlugin plugin;
 
-    public MotdBaseCommand(Hilda hilda, MotdPlugin plugin) {
+    public MotdBaseCommand(final Hilda hilda, final MotdPlugin plugin) {
         super(hilda);
 
         this.plugin = plugin;

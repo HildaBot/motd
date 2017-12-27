@@ -22,7 +22,7 @@ import ch.jamiete.hilda.plugins.HildaPlugin;
 
 public class MotdPlugin extends HildaPlugin {
 
-    public MotdPlugin(Hilda hilda) {
+    public MotdPlugin(final Hilda hilda) {
         super(hilda);
     }
 

@@ -15,19 +15,19 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.commands;
 
+import java.util.Arrays;
+import org.apache.commons.lang3.StringUtils;
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.motd.MotdPlugin;
 import net.dv8tion.jda.core.entities.Message;
-import org.apache.commons.lang3.StringUtils;
-import java.util.Arrays;
 
 public class MotdMessageCommand extends ChannelSubCommand {
-    private MotdPlugin plugin;
+    private final MotdPlugin plugin;
 
-    protected MotdMessageCommand(Hilda hilda, ChannelSeniorCommand senior, MotdPlugin plugin) {
+    protected MotdMessageCommand(final Hilda hilda, final ChannelSeniorCommand senior, final MotdPlugin plugin) {
         super(hilda, senior);
 
         this.plugin = plugin;
@@ -38,8 +38,8 @@ public class MotdMessageCommand extends ChannelSubCommand {
     }
 
     @Override
-    public void execute(Message message, String[] arguments, String label) {
-        Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
+    public void execute(final Message message, final String[] arguments, final String label) {
+        final Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
 
         if (arguments.length == 0) {
             cfg.get().remove("motd");

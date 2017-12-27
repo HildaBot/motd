@@ -15,6 +15,7 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.commands;
 
+import java.util.Arrays;
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
@@ -26,12 +27,11 @@ import net.dv8tion.jda.core.MessageBuilder.Formatting;
 import net.dv8tion.jda.core.MessageBuilder.SplitPolicy;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
-import java.util.Arrays;
 
 public class MotdCurrentCommand extends ChannelSubCommand {
-    private MotdPlugin plugin;
+    private final MotdPlugin plugin;
 
-    protected MotdCurrentCommand(Hilda hilda, ChannelSeniorCommand senior, MotdPlugin plugin) {
+    protected MotdCurrentCommand(final Hilda hilda, final ChannelSeniorCommand senior, final MotdPlugin plugin) {
         super(hilda, senior);
 
         this.plugin = plugin;
@@ -42,13 +42,13 @@ public class MotdCurrentCommand extends ChannelSubCommand {
     }
 
     @Override
-    public void execute(Message message, String[] arguments, String label) {
-        Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
+    public void execute(final Message message, final String[] arguments, final String label) {
+        final Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
 
-        String motd = cfg.getString("motd", null);
-        TextChannel channel = message.getGuild().getTextChannelById(cfg.getString("channel", "1"));
+        final String motd = cfg.getString("motd", null);
+        final TextChannel channel = message.getGuild().getTextChannelById(cfg.getString("channel", "1"));
 
-        MessageBuilder mb = new MessageBuilder();
+        final MessageBuilder mb = new MessageBuilder();
 
         mb.append("Motd message", Formatting.UNDERLINE).append("\n");
         mb.append("Current motd message configuration", Formatting.ITALICS).append("\n\n");

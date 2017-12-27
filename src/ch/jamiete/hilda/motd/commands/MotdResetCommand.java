@@ -23,9 +23,9 @@ import ch.jamiete.hilda.motd.MotdPlugin;
 import net.dv8tion.jda.core.entities.Message;
 
 public class MotdResetCommand extends ChannelSubCommand {
-    private MotdPlugin plugin;
+    private final MotdPlugin plugin;
 
-    protected MotdResetCommand(Hilda hilda, ChannelSeniorCommand senior, MotdPlugin plugin) {
+    protected MotdResetCommand(final Hilda hilda, final ChannelSeniorCommand senior, final MotdPlugin plugin) {
         super(hilda, senior);
 
         this.plugin = plugin;
@@ -35,8 +35,8 @@ public class MotdResetCommand extends ChannelSubCommand {
     }
 
     @Override
-    public void execute(Message message, String[] arguments, String label) {
-        Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
+    public void execute(final Message message, final String[] arguments, final String label) {
+        final Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
 
         cfg.get().remove("channel");
         cfg.get().remove("message");

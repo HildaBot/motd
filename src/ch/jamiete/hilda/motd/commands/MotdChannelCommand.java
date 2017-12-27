@@ -24,9 +24,9 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.TextChannel;
 
 public class MotdChannelCommand extends ChannelSubCommand {
-    private MotdPlugin plugin;
+    private final MotdPlugin plugin;
 
-    protected MotdChannelCommand(Hilda hilda, ChannelSeniorCommand senior, MotdPlugin plugin) {
+    protected MotdChannelCommand(final Hilda hilda, final ChannelSeniorCommand senior, final MotdPlugin plugin) {
         super(hilda, senior);
 
         this.plugin = plugin;
@@ -36,8 +36,8 @@ public class MotdChannelCommand extends ChannelSubCommand {
     }
 
     @Override
-    public void execute(Message message, String[] arguments, String label) {
-        Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
+    public void execute(final Message message, final String[] arguments, final String label) {
+        final Configuration cfg = this.hilda.getConfigurationManager().getConfiguration(this.plugin, message.getGuild().getId());
 
         if (arguments.length == 0) {
             cfg.get().remove("channel");
@@ -49,7 +49,7 @@ public class MotdChannelCommand extends ChannelSubCommand {
                 return;
             }
 
-            TextChannel chan = message.getMentionedChannels().get(0);
+            final TextChannel chan = message.getMentionedChannels().get(0);
 
             cfg.get().addProperty("channel", chan.getId());
             cfg.save();

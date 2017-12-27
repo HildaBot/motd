@@ -26,32 +26,6 @@ import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
 
 public class FlowListener {
-    private MotdPlugin plugin;
-
-    public FlowListener(MotdPlugin plugin) {
-        this.plugin = plugin;
-    }
-
-    @EventHandler
-    public void onGuildMemberJoin(final GuildMemberJoinEvent event) {
-        Configuration cfg = this.plugin.getHilda().getConfigurationManager().getConfiguration(this.plugin, event.getGuild().getId());
-
-        String motd = cfg.getString("motd", null);
-        String chan = cfg.getString("channel", null);
-
-        if (motd == null || chan == null) {
-            return;
-        }
-
-        TextChannel channel = event.getGuild().getTextChannelById(chan);
-
-        if (channel == null) {
-            return;
-        }
-
-        new MessageBuilder().append(FlowListener.compute(motd, event.getMember())).buildAll(SplitPolicy.SPACE).forEach(m -> channel.sendMessage(m).queue());
-    }
-
     public static String compute(String message, final Member member) {
         message = message.replaceAll("\\$mention", member.getAsMention());
         message = message.replaceAll("\\$username", Util.sanitise(member.getUser().getName()));
@@ -60,6 +34,32 @@ public class FlowListener {
         message = message.replaceAll("\\$id", member.getUser().getId());
 
         return message;
+    }
+
+    private final MotdPlugin plugin;
+
+    public FlowListener(final MotdPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    @EventHandler
+    public void onGuildMemberJoin(final GuildMemberJoinEvent event) {
+        final Configuration cfg = this.plugin.getHilda().getConfigurationManager().getConfiguration(this.plugin, event.getGuild().getId());
+
+        final String motd = cfg.getString("motd", null);
+        final String chan = cfg.getString("channel", null);
+
+        if (motd == null || chan == null) {
+            return;
+        }
+
+        final TextChannel channel = event.getGuild().getTextChannelById(chan);
+
+        if (channel == null) {
+            return;
+        }
+
+        new MessageBuilder().append(FlowListener.compute(motd, event.getMember())).buildAll(SplitPolicy.SPACE).forEach(m -> channel.sendMessage(m).queue());
     }
 
 }
