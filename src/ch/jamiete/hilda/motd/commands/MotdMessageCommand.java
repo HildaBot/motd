@@ -46,7 +46,7 @@ public class MotdMessageCommand extends ChannelSubCommand {
             cfg.save();
             this.reply(message, "Removed the MOTD message!");
         } else {
-            String msg = message.getRawContent();
+            String msg = message.getContentRaw();
 
             msg = StringUtils.removeAll(msg, "\\!\\w+ \\w+ ");
 
