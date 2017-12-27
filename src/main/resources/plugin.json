@@ -2,5 +2,6 @@
     "name": "motd",
     "mainClass": "ch.jamiete.hilda.motd.MotdPlugin",
     "version": "${pom.version}",
-    "author": "jamietech"
+    "author": "jamietech",
+    "load_after": [ "moderator-tools" ]
 }
