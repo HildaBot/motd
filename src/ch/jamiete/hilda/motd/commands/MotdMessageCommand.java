@@ -15,14 +15,14 @@
  *******************************************************************************/
 package ch.jamiete.hilda.motd.commands;
 
-import java.util.Arrays;
+import java.util.Collections;
+import net.dv8tion.jda.api.entities.Message;
 import org.apache.commons.lang3.StringUtils;
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.motd.MotdPlugin;
-import net.dv8tion.jda.core.entities.Message;
 
 public class MotdMessageCommand extends ChannelSubCommand {
     private final MotdPlugin plugin;
@@ -33,7 +33,7 @@ public class MotdMessageCommand extends ChannelSubCommand {
         this.plugin = plugin;
 
         this.setName("message");
-        this.setAliases(Arrays.asList("msg"));
+        this.setAliases(Collections.singletonList("msg"));
         this.setDescription("Sets the message to send when someone joins.");
     }
 

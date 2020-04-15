@@ -18,7 +18,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ch.jamiete.hilda</groupId>
     <artifactId>motd</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <name>motd</name>
     <build>
         <sourceDirectory>src</sourceDirectory>

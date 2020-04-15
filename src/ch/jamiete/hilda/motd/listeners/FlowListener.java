@@ -19,11 +19,10 @@ import ch.jamiete.hilda.Util;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.events.EventHandler;
 import ch.jamiete.hilda.motd.MotdPlugin;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.MessageBuilder.SplitPolicy;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 
 public class FlowListener {
     public static String compute(String message, final Member member) {
@@ -59,7 +58,7 @@ public class FlowListener {
             return;
         }
 
-        new MessageBuilder().append(FlowListener.compute(motd, event.getMember())).buildAll(SplitPolicy.SPACE).forEach(m -> channel.sendMessage(m).queue());
+        new MessageBuilder().append(FlowListener.compute(motd, event.getMember())).buildAll(MessageBuilder.SplitPolicy.SPACE).forEach(m -> channel.sendMessage(m).queue());
     }
 
 }

@@ -22,11 +22,9 @@ import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.commands.CommandManager;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.motd.MotdPlugin;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.MessageBuilder.Formatting;
-import net.dv8tion.jda.core.MessageBuilder.SplitPolicy;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.TextChannel;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 
 public class MotdCurrentCommand extends ChannelSubCommand {
     private final MotdPlugin plugin;
@@ -50,17 +48,17 @@ public class MotdCurrentCommand extends ChannelSubCommand {
 
         final MessageBuilder mb = new MessageBuilder();
 
-        mb.append("Motd message", Formatting.UNDERLINE).append("\n");
-        mb.append("Current motd message configuration", Formatting.ITALICS).append("\n\n");
+        mb.append("Motd message", MessageBuilder.Formatting.UNDERLINE).append("\n");
+        mb.append("Current motd message configuration", MessageBuilder.Formatting.ITALICS).append("\n\n");
 
-        mb.append("Channel:", Formatting.BOLD).append(" ").append(channel == null ? "*Unset.*" : "#" + channel.getName()).append("\n");
-        mb.append("Motd:", Formatting.BOLD).append(motd == null ? " *Unset.*" : "\n\n" + motd).append("\n\n");
+        mb.append("Channel:", MessageBuilder.Formatting.BOLD).append(" ").append(channel == null ? "*Unset.*" : "#" + channel.getName()).append("\n");
+        mb.append("Motd:", MessageBuilder.Formatting.BOLD).append(motd == null ? " *Unset.*" : "\n\n" + motd).append("\n\n");
 
-        mb.append("To change the message say ").append(CommandManager.PREFIX + this.getSenior().getName() + " message <message>", Formatting.BOLD);
+        mb.append("To change the message say ").append(CommandManager.PREFIX + this.getSenior().getName() + " message <message>", MessageBuilder.Formatting.BOLD);
         mb.append(". You can use the following substitutions: $mention $username $effective $discriminator $id. ");
         mb.append("Emoji and emotes can be used.");
 
-        mb.buildAll(SplitPolicy.SPACE).forEach(m -> this.reply(message, m));
+        mb.buildAll(MessageBuilder.SplitPolicy.SPACE).forEach(m -> this.reply(message, m));
     }
 
 }
